@@ -21,8 +21,6 @@ class ToKnowController extends Telegram.TelegramBaseController {
         request(url, (err, res, data) => {
           if (err) {
             $.sendMessage('Something went wrong');
-            let username = Message.username;
-            $.sendMessage(username);
           }
           else {
             let weatherInfo = JSON.parse(data);
