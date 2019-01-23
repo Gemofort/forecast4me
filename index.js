@@ -26,9 +26,7 @@ tg.router
 setInterval(() => {
   request(url, (err, res, data) => {
     if (err) {
-      tg.onMaster(() => {
-        tg.api.sendMessage(chatId, 'oooooooooopsie something went wrong');
-      });
+      console.log('something went wrong');
     }
     else {
       let now = new Date();
