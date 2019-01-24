@@ -24,14 +24,16 @@ tg.router
   );
 
 setInterval(() => {
-  request(url, (err, res, data) => {
-    if (err) {
-      console.log('something went wrong');
-    }
-    else {
-      let now = new Date();
-      let time = date.format(now, 'H:mm:ss');
-      if (time === '8:00:00' || time === '18:00:00') {
+  let now = new Date();
+  let time = date.format(now, 'H:mm:ss');
+  if (time === '8:00:00' || time === '18:00:00') {
+    request(url, (err, res, data) => {
+      if (err) {
+        tg.onMaster(() => {
+          tg.api.sendMessage(chatId, 'oooooopsie something went wrong');
+        });
+      }
+      else {
         let weatherInfo = JSON.parse(data);
         let message = `It's ${weatherInfo.main.temp}C in ${weatherInfo.name} at ${time}`;
 
@@ -39,7 +41,7 @@ setInterval(() => {
           tg.api.sendMessage(chatId, message);
         });
       }
-    }
-  });
+    });
+  }
 
 }, 1000);
